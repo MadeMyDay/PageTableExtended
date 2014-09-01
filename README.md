@@ -32,11 +32,11 @@ Check this for seeing the rows rendered. You can easily turn off the complete fu
 
 Since the parts are unstyled by default, it is a good idea to define styles for them. All rendered templates are encapsulated in a div with the class "renderedLayout" so you can style them with:
 
-´´´CSS
+```CSS
 div.renderedLayout h2{
   color: green;
 }
-´´´
+```
 
 The path is to be set relative to your templates' folder.
 
