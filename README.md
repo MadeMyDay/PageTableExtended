@@ -12,7 +12,7 @@ Turns the Processwire Fieldtype "Page Table" from this:
 
 into something like this:
 
-![PageTable before](http://siebennull.com/github/git2.jpg)
+![PageTable after](http://siebennull.com/github/git2.jpg)
 
 ## Requirements
 
@@ -21,6 +21,8 @@ into something like this:
 * This render method is meant for sites where the PageTable templates only render part of the layout, not complete websites. But you also can define what will be rendered (see below).
 
 ## Options
+
+![PageTableExtended settings](http://siebennull.com/github/git3.jpg)
 
 ### Render Layout instead of table rows
 
