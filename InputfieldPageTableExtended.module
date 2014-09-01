@@ -1,0 +1,130 @@
+<?php
+
+class InputfieldPageTableExtended extends InputfieldPageTable {
+
+	public static function getModuleInfo() {
+		return array(
+			'title' => __('PageTable render', __FILE__), // Module Title
+			'summary' => __('Adds render functionality for PageTable fields', __FILE__), // Module Summary
+			'version' => 001,
+			'permanent' => false, 
+			);
+	}
+
+	public function init() {
+		parent::init();
+		$this->set('pathToCSS', ''); 
+		$this->set('resetCSS', '');
+		$this->set('renderLayout', '');
+	}
+	
+	public function ___render() {
+
+		$this->config->scripts->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.js");
+
+		$this->config->styles->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.css");
+
+		if($this->resetCSS){
+			$this->config->styles->add($this->config->urls->InputfieldPageTableExtended . "resetAdminCSS.css");
+		}
+
+		if($this->pathToCSS){
+			$this->config->styles->add(wire('config')->urls->templates.$this->pathToCSS);
+		}
+		
+		return parent::___render();
+	}
+
+	public function ___renderTable(array $columns) {
+	    if($this->renderLayout) {
+	        $pagesToRender = $this->attr('value'); // pages
+	        $layout = "";
+	        foreach($pagesToRender as $p){
+	        	$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
+	        	$layout .= '
+	        				<tr data-id="'.$p->id.'">
+	        					<td width="95%">
+	        						<a href="#" class="toggleRenderedLayout">
+	        							<i class="toggle-icon fa fa-angle-down"></i>
+	        						</a>
+	        						<span class="renderedLayoutTitle inactive">'.$layoutTitle.'</span>
+	        						<div class="renderedLayout active">'.$p->render(array('pageTableExtended' => true)).'</div>
+	        					</td>
+	        					<td width="5%">
+	        						<a class="InputfieldPageTableEdit" data-url="./?id='.$p->id.'&amp;modal=1" href="#">
+	        							<i class="fa fa-edit"></i>
+	        						</a>&nbsp;
+	        						<a class="InputfieldPageTableDelete" href="#">
+	        							<i class="fa fa-trash-o"></i>
+	        						</a>
+	        					</td>
+	        				</tr>';
+	        }
+	        $out = '
+	        		<table class="AdminDataTable AdminDataList">
+	        			<thead>
+	        				<tr>
+	        					<th>'.$this->_('Layout Elements').'</th>
+	        					<th>&nbsp;</th>
+	        				</tr>
+	        			</thead>
+	        			<tbody class="ui-sortable">'.$layout.'</tbody>
+	        		</table>';
+
+	    } else {
+	        $out = parent::___renderTable($columns); // InputfieldPageTable method
+	    }
+
+	    return $out;
+	}
+
+ 	public function ___getConfigInputfields() {
+
+        $inputfields = parent::___getConfigInputfields();
+
+        $fieldset = $this->modules->get('InputfieldFieldset'); 
+		$fieldset->label = $this->_('PageTable Render Layout Options');
+        
+        $f = $this->wire('modules')->get('InputfieldCheckbox'); 
+        $f->attr('name', 'renderLayout'); 
+        $f->attr('value', 1); 
+        if($this->renderLayout) $f->attr('checked', 'checked'); 
+        $f->label = $this->_('Render Layout instead of table rows?'); 
+        $f->description = $this->_('If checked, layout is rendered instead of table row.'); // renderLayout option description
+        $f->notes = $this->_('Make sure that your PageTable templates render only html fragments and not complete websites.'); 
+        //$f->collapsed = Inputfield::collapsedBlank;
+        $fieldset->append($f);
+
+
+        $f = $this->wire('modules')->get('InputfieldText');
+		$f->attr('name', 'pathToCSS');
+		$f->attr('value', $this->pathToCSS);
+		$f->showIf = "renderLayout=1";
+		$f->label = $this->_('Path to Stylesheet');
+		$f->description = $this->_('Custom CSS to include for styling pageTable entries in Admin.'); // page name format description
+		$f->notes = $this->_('Path is relative to your template folder.'); // page name format notes
+		$fieldset->append($f);
+
+        $f = $this->wire('modules')->get('InputfieldCheckbox'); 
+        $f->attr('name', 'resetCSS'); 
+        $f->attr('value', 1); 
+        $f->showIf = "renderLayout=1";
+        //$f->attr('checked', 'checked');
+        if($this->resetCSS) $f->attr('checked', 'checked'); 
+        $f->label = $this->_('Reset Admin CSS for rendered rows?'); 
+        $f->description = $this->_('If checked, the CSS for admin (for example for fonts etc.) gets reset inside the rendered rows, so no foreign styles and only your custom styles get applied.'); 
+        $f->notes = $this->_('Primarily makes sense for a 1:1 rendered layout but needs more work.'); 
+        //$f->collapsed = Inputfield::collapsedBlank;
+        $fieldset->append($f);
+
+
+		$inputfields->append($fieldset);
+
+        return $inputfields;    
+    }
+
+
+
+
+	
+}

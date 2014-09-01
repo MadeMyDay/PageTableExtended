@@ -1,0 +1,25 @@
+.InputfieldPageTableExtended .renderedLayoutTitle {
+	font-size: 0.7em;
+	text-transform: uppercase;
+	color: #777; 
+	display: inline-block;
+	margin-left: 10px;
+	cursor: move;
+}
+
+
+.InputfieldPageTableExtended .toggleRenderedLayout{
+	width: 10px;
+	display: inline-block;
+	text-align: center;
+}
+
+.InputfieldPageTableExtended .renderedLayoutTitle.inactive {
+	color: #ccc;
+}
+
+.InputfieldPageTableExtended .renderedLayout img{
+	max-width: 100%;
+}
+
+

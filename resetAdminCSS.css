@@ -1,0 +1,37 @@
+/* resetting styles inside rendered pageTable rows.
+*/
+
+.renderedLayout div, .renderedLayout span, .renderedLayout applet, .renderedLayout object, .renderedLayout iframe,
+h1, .renderedLayout h2, .renderedLayout h3, .renderedLayout h4, .renderedLayout h5, .renderedLayout h6, .renderedLayout p, .renderedLayout blockquote, .renderedLayout pre,
+a, .renderedLayout abbr, .renderedLayout acronym, .renderedLayout address, .renderedLayout big, .renderedLayout cite, .renderedLayout code,
+del, .renderedLayout dfn, .renderedLayout em, .renderedLayout img, .renderedLayout ins, .renderedLayout kbd, .renderedLayout q, .renderedLayout s, .renderedLayout samp,
+small, .renderedLayout strike, .renderedLayout strong, .renderedLayout sub, .renderedLayout sup, .renderedLayout tt, .renderedLayout var,
+b, .renderedLayout u, .renderedLayout i, .renderedLayout center,
+dl, .renderedLayout dt, .renderedLayout dd, .renderedLayout ol, .renderedLayout ul, .renderedLayout li,
+fieldset, .renderedLayout form, .renderedLayout label, .renderedLayout legend,
+table, .renderedLayout caption, .renderedLayout tbody, .renderedLayout tfoot, .renderedLayout thead, .renderedLayout tr, .renderedLayout th, .renderedLayout td,
+article, .renderedLayout aside, .renderedLayout canvas, .renderedLayout details, .renderedLayout embed, .renderedLayout 
+figure, .renderedLayout figcaption, .renderedLayout footer, .renderedLayout header, .renderedLayout hgroup, .renderedLayout 
+menu, .renderedLayout nav, .renderedLayout output, .renderedLayout ruby, .renderedLayout section, .renderedLayout summary,
+time, .renderedLayout mark, .renderedLayout audio, .renderedLayout video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	line-height: 1;
+	color: #000;
+}
+
+body {
+	line-height: 1;
+}
+.renderedLayout ol, .renderedLayout ul {
+	list-style: none;
+}
+
+.renderedLayout table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
