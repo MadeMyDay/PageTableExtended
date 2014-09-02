@@ -4,10 +4,10 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 
 	public static function getModuleInfo() {
 		return array(
-			'title' => __('PageTable render', __FILE__), // Module Title
-			'summary' => __('Adds render functionality for PageTable fields', __FILE__), // Module Summary
+			'title' => __('Inputfield for PageTableExtended', __FILE__), // Module Title
+			'summary' => __('Adds Inputfield for PageTableExtended', __FILE__), // Module Summary
 			'version' => 001,
-			'requires' => array('InputFieldPageTable','FieldtypePageTable'),
+			'requires' => array('FieldtypePageTableExtended'),
 			'permanent' => false, 
 			);
 	}
