@@ -46,6 +46,18 @@ div.renderedLayout h2{
   color: green;
 }
 ```
+### (hidden) Passed option to rendered layouts
+
+An option "PageTableExtended" is passed to the rendered templates when rendered from this module. With that you can custom code for your PageTableExtended template or just alter the current one. Like this:
+
+```PHP
+
+if($options['pageTableExtended']){
+	echo "this is rendered in admin: {$page->title}"; 	// we are in Admin section
+} else {
+	echo "this is the frontend: {$page->title}"; 		// we are in the frontend
+}
+```
 
 The path is to be set relative to your templates' folder.
 
