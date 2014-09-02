@@ -20,6 +20,15 @@ into something like this:
 * Templates used for PageTable need a file associated (otherwise nothing gets rendered)
 * This render method is meant for sites where the PageTable templates only render part of the layout, not complete websites. But you also can define what will be rendered (see below).
 
+## Installation
+
+* Download and copy folder in your /sites/modules/ directory
+* In Admin, go to "modules" and "search for new modules"
+* Choose "PageTableExtended" and install
+* Create a new field with type "PageTableExtended"
+* Don't forget to define some templates for usage with PageTable(Extended)
+* I _should_ be fine to change a already used PageTable field to the extended version. But remember to check the "keep settings and content" option.
+
 ## Options
 
 ![PageTableExtended settings](http://siebennull.com/github/git3.jpg)
