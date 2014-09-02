@@ -27,7 +27,7 @@ into something like this:
 * Choose "PageTableExtended" and install
 * Create a new field with type "PageTableExtended"
 * Don't forget to define some templates for usage with PageTable(Extended)
-* I _should_ be fine to change a already used PageTable field to the extended version. But remember to check the "keep settings and content" option.
+* It _should_ be fine to change a already used PageTable field to the extended version. But remember to check the "keep settings and content" option.
 
 ## Options
 
