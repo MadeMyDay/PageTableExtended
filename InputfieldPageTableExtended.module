@@ -42,6 +42,9 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        $layout = "";
 	        foreach($pagesToRender as $p){
 	        	$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
+	        	$parsedTemplate = new TemplateFile($this->config->paths->templates . $p->template->name . ".php");
+                	$parsedTemplate->page = $p;
+                	$parsedTemplate->options = array('pageTableExtended' => true);
 	        	$layout .= '
 	        				<tr data-id="'.$p->id.'">
 	        					<td width="95%">
@@ -49,7 +52,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        							<i class="toggle-icon fa fa-angle-down"></i>
 	        						</a>
 	        						<span class="renderedLayoutTitle inactive">'.$layoutTitle.'</span>
-	        						<div class="renderedLayout active">'.$p->render(array('pageTableExtended' => true)).'</div>
+	        						<div class="renderedLayout active">'.$parsedTemplate->render().'</div>
 	        					</td>
 	        					<td width="5%">
 	        						<a class="InputfieldPageTableEdit" data-url="./?id='.$p->id.'&amp;modal=1" href="#">
