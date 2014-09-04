@@ -14,6 +14,11 @@ into something like this:
 
 ![PageTable after](http://siebennull.com/github/git2.jpg)
 
+## See it in action
+
+[![ProcessWire PageTableExtended Video](http://img.youtube.com/vi/F4WRPwJFV0g/0.jpg)](http://www.youtube.com/watch?v=F4WRPwJFV0g)
+
+
 ## Requirements
 
 * FieldtypePageTable installed (part of the core since Processwire 2.4.10.)
@@ -48,7 +53,7 @@ div.renderedLayout h2{
 ```
 ### (hidden) Passed option to rendered layouts
 
-An option "PageTableExtended" is passed to the rendered templates when rendered from this module. With that you can custom code for your PageTableExtended template or just alter the current one. Like this:
+An option "PageTableExtended" is passed to the rendered templates when rendered from this module. With that you can render customized code for your PageTableExtended template or just alter the current one. Like this:
 
 ```PHP
 
