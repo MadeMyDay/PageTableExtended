@@ -17,7 +17,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		$this->set('pathToCSS', ''); 
 		$this->set('resetCSS', '');
 		$this->set('renderLayout', '');
-		$this->set('pathToTemplate', '');
+		$this->set('pathToTemplates', '');
 		$this->set('collapseUnpublished', '');
 	}
 	
