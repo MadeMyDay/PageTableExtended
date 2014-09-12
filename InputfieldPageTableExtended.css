@@ -6,7 +6,9 @@
 	margin-left: 10px;
 	cursor: move;
 }
-
+.InputfieldPageTableExtended div.renderedLayout.hiddenOnStart{
+	display: none;
+}
 
 .InputfieldPageTableExtended .toggleRenderedLayout{
 	width: 10px;

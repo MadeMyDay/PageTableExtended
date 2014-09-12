@@ -64,7 +64,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 
             	if($this->collapseUnpublished && $p->is($p::statusUnpublished)){
             		$iconClass = "fa-angle-right";
-            		$activeClass = "";
+            		$activeClass = "hiddenOnStart";
             	}
 
 	        	$layout .= '

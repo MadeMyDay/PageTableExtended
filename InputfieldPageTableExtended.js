@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
 	// collapse hidden parts
-	$('div.renderedLayout:not(.pte-open)').hide();
+	$('.InputfieldPageTableContainer table tbody').on('sortcreate', function(event, ui){
+		console.log(event);
+		$('div.renderedLayout:not(.pte-open)').hide();
+	})
 
 	if($(".InputfieldPageTableExtended table").length >0){
 		InputfieldPageTableSortable($(".InputfieldPageTableExtended table"));
