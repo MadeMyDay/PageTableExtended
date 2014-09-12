@@ -42,6 +42,12 @@ into something like this:
 
 Check this for seeing the rows rendered. You can easily turn off the complete functionality by unchecking this.
 
+### Path to Templates
+If you use a delegated template approach, please provide your path to the templates (relative to templates directory).
+
+### Collapse unpublished rows
+If checked, unpublished PageTable parts are rendered collapsed and can be opened on click.
+
 ### Path to Stylesheet
 
 Since the parts are unstyled by default, it is a good idea to define styles for them. All rendered templates are encapsulated in a div with the class "renderedLayout" so you can style them with:
@@ -65,6 +71,13 @@ if($options['pageTableExtended']){
 ```
 
 The path is to be set relative to your templates' folder.
+
+### (hidden) CSS classes for PageTable page status
+
+The rendered parts get the status of the page as CSS class:
+* "pte-hidden" for hidden pages
+* "pte-unpublished" for unpublished pages
+* "pte-locked" for locked pages
 
 ### Reset Admin CSS
 
