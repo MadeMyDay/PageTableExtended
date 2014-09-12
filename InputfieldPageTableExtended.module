@@ -6,7 +6,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		return array(
 			'title' => __('Inputfield for PageTableExtended', __FILE__), // Module Title
 			'summary' => __('Adds Inputfield for PageTableExtended', __FILE__), // Module Summary
-			'version' => 10,
+			'version' => 20,
 			'requires' => array('FieldtypePageTableExtended'),
 			'permanent' => false, 
 			);
@@ -17,6 +17,8 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		$this->set('pathToCSS', ''); 
 		$this->set('resetCSS', '');
 		$this->set('renderLayout', '');
+		$this->set('pathToTemplate', '');
+		$this->set('collapseUnpublished', '');
 	}
 	
 	public function ___render() {
@@ -41,18 +43,38 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        $pagesToRender = $this->attr('value'); // pages
 	        $layout = "";
 	        foreach($pagesToRender as $p){
+
 	        	$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
-	        	$parsedTemplate = new TemplateFile($this->config->paths->templates . $p->template->name . ".php");
-                	$parsedTemplate->page = $p;
-                	$parsedTemplate->options = array('pageTableExtended' => true);
+
+	        	$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $p->template->name . ".php");
+            	$parsedTemplate->page = $p;
+            	$parsedTemplate->options = array('pageTableExtended' => true);
+
+            	$iconClass = "fa-angle-down";
+
+            	$activeClass = "pte-open";
+
+            	$statusClass = "";
+
+            	if($p->is($p::statusUnpublished)) $statusClass .= " pte-unpublished";
+        		if($p->is($p::statusHidden)) $statusClass .= " pte-hidden";
+        		if($p->is($p::statusLocked)) $statusClass .= " pte-locked";
+
+        		//$statusClass = trim($statusClass);
+
+            	if($this->collapseUnpublished && $p->is($p::statusUnpublished)){
+            		$iconClass = "fa-angle-right";
+            		$activeClass = "";
+            	}
+
 	        	$layout .= '
-	        				<tr data-id="'.$p->id.'">
+	        				<tr data-id="'.$p->id.'" class="'.$statusClass.'">
 	        					<td width="95%">
 	        						<a href="#" class="toggleRenderedLayout">
-	        							<i class="toggle-icon fa fa-angle-down"></i>
+	        							<i class="toggle-icon fa '.$iconClass.'"></i>
 	        						</a>
-	        						<span class="renderedLayoutTitle inactive">'.$layoutTitle.'</span>
-	        						<div class="renderedLayout active">'.$parsedTemplate->render().'</div>
+	        						<span class="renderedLayoutTitle '.$activeClass.'">'.$layoutTitle.'</span>
+	        						<div class="renderedLayout '.$activeClass.$statusClass.'">'.$parsedTemplate->render().'</div>
 	        					</td>
 	        					<td width="5%">
 	        						<a class="InputfieldPageTableEdit" data-url="./?id='.$p->id.'&amp;modal=1" href="#">
@@ -109,9 +131,29 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		$f->notes = $this->_('Path is relative to your template folder.'); // page name format notes
 		$fieldset->append($f);
 
+		$f = $this->wire('modules')->get('InputfieldText');
+		$f->attr('name', 'pathToTemplates');
+		$f->attr('value', $this->pathToTemplates);
+		$f->showIf = "renderLayout=1";
+		$f->label = $this->_('Path to Templates');
+		$f->description = $this->_('If you use a delegated template approach, please provide your path to the templates (relative to templates directory).'); // page name format description
+		$f->notes = $this->_('For example "/controllers/"'); // page name format notes
+		$fieldset->append($f);
+
+		$f = $this->wire('modules')->get('InputfieldCheckbox'); 
+        $f->attr('name', 'collapseUnpublished'); 
+        $f->attr('value', 1); 
+        $f->showIf = "renderLayout=1";
+        //$f->attr('checked', 'checked');
+        if($this->collapseUnpublished) $f->attr('checked', 'checked'); 
+        $f->label = $this->_('Collapse unpublished PageTable parts?'); 
+        $f->description = $this->_('If checked, unpublished PageTable parts are rendered collapsed and can be opened on click.'); 
+        //$f->collapsed = Inputfield::collapsedBlank;
+        $fieldset->append($f);
+
         $f = $this->wire('modules')->get('InputfieldCheckbox'); 
         $f->attr('name', 'resetCSS'); 
-        $f->attr('value', 1); 
+        $f->attr('value', 0); 
         $f->showIf = "renderLayout=1";
         //$f->attr('checked', 'checked');
         if($this->resetCSS) $f->attr('checked', 'checked'); 
@@ -126,9 +168,5 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 
         return $inputfields;    
     }
-
-
-
-
 	
 }

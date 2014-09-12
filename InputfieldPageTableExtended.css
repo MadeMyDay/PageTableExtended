@@ -14,8 +14,12 @@
 	text-align: center;
 }
 
-.InputfieldPageTableExtended .renderedLayoutTitle.inactive {
+.InputfieldPageTableExtended .renderedLayoutTitle.pte-open {
 	color: #ccc;
+}
+
+.InputfieldPageTableExtended .pte-unpublished .renderedLayoutTitle {
+	text-decoration:line-through; 
 }
 
 .InputfieldPageTableExtended .renderedLayout img{

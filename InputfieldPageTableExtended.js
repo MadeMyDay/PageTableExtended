@@ -1,13 +1,14 @@
 $(document).ready(function() {
 
-	// $(document).on('click', '.InputfieldPageTableAdd, .InputfieldPageTableEdit', InputfieldPageTableDialog); 
-	// $(document).on('click', 'a.InputfieldPageTableDelete', InputfieldPageTableDelete); 
+	// collapse hidden parts
+	$('div.renderedLayout:not(.pte-open)').hide();
+
 	if($(".InputfieldPageTableExtended table").length >0){
 		InputfieldPageTableSortable($(".InputfieldPageTableExtended table"));
 		$('.InputfieldPageTableExtended').on('click',' a.toggleRenderedLayout',function(e){
 			e.preventDefault();
 			e.stopImmediatePropagation();
-			$(this).next('span').toggleClass('inactive');
+			$(this).next('span').toggleClass('pte-open');
 			var $this = $(this).find('i').eq(0);
 			$(this).nextAll('div.renderedLayout').eq(0).slideToggle(300,function(){
 				if($this.hasClass('fa-angle-down')){
