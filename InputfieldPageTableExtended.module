@@ -137,7 +137,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		$f->showIf = "renderLayout=1";
 		$f->label = $this->_('Path to Templates');
 		$f->description = $this->_('If you use a delegated template approach, please provide your path to the templates (relative to templates directory).'); // page name format description
-		$f->notes = $this->_('For example "/controllers/"'); // page name format notes
+		$f->notes = $this->_('For example "controllers/"'); // page name format notes
 		$fieldset->append($f);
 
 		$f = $this->wire('modules')->get('InputfieldCheckbox'); 
