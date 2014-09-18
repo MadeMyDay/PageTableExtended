@@ -46,7 +46,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 
 	        	$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
 
-	        	$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $p->template->name . ".php");
+	        	$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $p->template->name . '.' . wire('config')->templateExtension);
             	$parsedTemplate->page = $p;
             	$parsedTemplate->options = array('pageTableExtended' => true);
 
