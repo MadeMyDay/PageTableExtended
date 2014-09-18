@@ -74,7 +74,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        							<i class="toggle-icon fa '.$iconClass.'"></i>
 	        						</a>
 	        						<span class="renderedLayoutTitle '.$activeClass.'">'.$layoutTitle.'</span>
-	        						<div class="renderedLayout '.$activeClass.$statusClass.'">'.$parsedTemplate->render().'</div>
+	        						<div class="renderedLayout '.$activeClass.$statusClass.'">'.$parsedTemplate->page->render().'</div>
 	        					</td>
 	        					<td width="5%">
 	        						<a class="InputfieldPageTableEdit" data-url="./?id='.$p->id.'&amp;modal=1" href="#">
