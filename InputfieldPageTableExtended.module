@@ -49,7 +49,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        	$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $p->template->name . '.' . wire('config')->templateExtension);
             	$parsedTemplate->page = $p;
             	$parsedTemplate->options = array('pageTableExtended' => true);
-		$parsedTemplate->page->of(true); // set OutputFormatting to true
+				$parsedTemplate->page->of(true); // set OutputFormatting to true
 		
             	$iconClass = "fa-angle-down";
 
@@ -97,6 +97,8 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        			</thead>
 	        			<tbody class="ui-sortable">'.$layout.'</tbody>
 	        		</table>';
+
+	        $parsedTemplate->page->of(false); // set OutputFormatting back to false, just in case
 
 	    } else {
 	        $out = parent::___renderTable($columns); // InputfieldPageTable method
