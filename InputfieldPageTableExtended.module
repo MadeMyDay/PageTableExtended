@@ -6,7 +6,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		return array(
 			'title' => __('Inputfield for PageTableExtended', __FILE__), // Module Title
 			'summary' => __('Adds Inputfield for PageTableExtended', __FILE__), // Module Summary
-			'version' => 20,
+			'version' => 22,
 			'requires' => array('FieldtypePageTableExtended'),
 			'permanent' => false, 
 			);
@@ -97,8 +97,6 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        			</thead>
 	        			<tbody class="ui-sortable">'.$layout.'</tbody>
 	        		</table>';
-
-	        $parsedTemplate->page->of(false); // set OutputFormatting back to false, just in case
 
 	    } else {
 	        $out = parent::___renderTable($columns); // InputfieldPageTable method
