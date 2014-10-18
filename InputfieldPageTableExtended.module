@@ -45,12 +45,12 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 			foreach($pagesToRender as $p){
 
 				$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
-
 				$ext = "." . $this->config->templateExtension;
 				$template_name = $p->template->altFilename ? basename($p->template->altFilename, $ext) : $p->template->name;
 				$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $template_name . $ext);
 				$parsedTemplate->page = $p;
-            			$parsedTemplate->options = array('pageTableExtended' => true);
+            	$parsedTemplate->options = array('pageTableExtended' => true);
+
 				$parsedTemplate->page->of(true); // set OutputFormatting to true
 
 				$iconClass = "fa-angle-down";
