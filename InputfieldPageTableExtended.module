@@ -9,7 +9,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 			'version' => 22,
 			'requires' => array('FieldtypePageTableExtended'),
 			'permanent' => false, 
-			);
+		);
 	}
 
 	public function init() {
@@ -39,36 +39,34 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	}
 
 	public function ___renderTable(array $columns) {
-	    if($this->renderLayout) {
-	        $pagesToRender = $this->attr('value'); // pages
-	        $layout = "";
-	        foreach($pagesToRender as $p){
+		if($this->renderLayout) {
+			$pagesToRender = $this->attr('value'); // pages
+			$layout = "";
+			foreach($pagesToRender as $p){
 
-	        	$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
+				$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
 
-	        	$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $p->template->name . '.' . wire('config')->templateExtension);
-            	$parsedTemplate->page = $p;
-            	$parsedTemplate->options = array('pageTableExtended' => true);
+				$ext = "." . $this->config->templateExtension;
+				$template_name = $p->template->altFilename ? basename($p->template->altFilename, $ext) : $p->template->name;
+				$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $template_name . $ext);
+				$parsedTemplate->page = $p;
+            			$parsedTemplate->options = array('pageTableExtended' => true);
 				$parsedTemplate->page->of(true); // set OutputFormatting to true
-		
-            	$iconClass = "fa-angle-down";
 
-            	$activeClass = "pte-open";
+				$iconClass = "fa-angle-down";
+				$activeClass = "pte-open";
+				$statusClass = "";
 
-            	$statusClass = "";
+				if($p->is($p::statusUnpublished)) $statusClass .= " pte-unpublished";
+				if($p->is($p::statusHidden)) $statusClass .= " pte-hidden";
+				if($p->is($p::statusLocked)) $statusClass .= " pte-locked";
 
-            	if($p->is($p::statusUnpublished)) $statusClass .= " pte-unpublished";
-        		if($p->is($p::statusHidden)) $statusClass .= " pte-hidden";
-        		if($p->is($p::statusLocked)) $statusClass .= " pte-locked";
+				if($this->collapseUnpublished && $p->is($p::statusUnpublished)){
+					$iconClass = "fa-angle-right";
+					$activeClass = "hiddenOnStart";
+				}
 
-        		//$statusClass = trim($statusClass);
-
-            	if($this->collapseUnpublished && $p->is($p::statusUnpublished)){
-            		$iconClass = "fa-angle-right";
-            		$activeClass = "hiddenOnStart";
-            	}
-
-	        	$layout .= '
+				$layout .= '
 	        				<tr data-id="'.$p->id.'" class="'.$statusClass.'">
 	        					<td width="95%">
 	        						<a href="#" class="toggleRenderedLayout">
@@ -86,8 +84,8 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        						</a>
 	        					</td>
 	        				</tr>';
-	        }
-	        $out = '
+			}
+			$out = '
 	        		<table class="AdminDataTable AdminDataList">
 	        			<thead>
 	        				<tr>
@@ -98,11 +96,11 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        			<tbody class="ui-sortable">'.$layout.'</tbody>
 	        		</table>';
 
-	    } else {
-	        $out = parent::___renderTable($columns); // InputfieldPageTable method
-	    }
+		} else {
+			$out = parent::___renderTable($columns); // InputfieldPageTable method
+		}
 
-	    return $out;
+		return $out;
 	}
 
  	public function ___getConfigInputfields() {
