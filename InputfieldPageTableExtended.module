@@ -49,7 +49,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 				$template_name = $p->template->altFilename ? basename($p->template->altFilename, $ext) : $p->template->name;
 				$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $template_name . $ext);
 				$parsedTemplate->page = $p;
-            	$parsedTemplate->options = array('pageTableExtended' => true);
+				$parsedTemplate->options = array('pageTableExtended' => true);
 
 				$parsedTemplate->page->of(true); // set OutputFormatting to true
 
@@ -73,7 +73,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        							<i class="toggle-icon fa '.$iconClass.'"></i>
 	        						</a>
 	        						<span class="renderedLayoutTitle '.$activeClass.'">'.$layoutTitle.'</span>
-	        						<div class="renderedLayout '.$activeClass.$statusClass.'">'.$parsedTemplate->page->render().'</div>
+	        						<div class="renderedLayout '.$activeClass.$statusClass.'">'.$parsedTemplate->page->render(array('pageTableExtended' => true)).'</div>
 	        					</td>
 	        					<td width="5%">
 	        						<a class="InputfieldPageTableEdit" data-url="./?id='.$p->id.'&amp;modal=1" href="#">
@@ -105,23 +105,23 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 
  	public function ___getConfigInputfields() {
 
-        $inputfields = parent::___getConfigInputfields();
+		$inputfields = parent::___getConfigInputfields();
 
-        $fieldset = $this->modules->get('InputfieldFieldset'); 
+		$fieldset = $this->modules->get('InputfieldFieldset'); 
 		$fieldset->label = $this->_('PageTable Render Layout Options');
         
-        $f = $this->wire('modules')->get('InputfieldCheckbox'); 
-        $f->attr('name', 'renderLayout'); 
-        $f->attr('value', 1); 
-        if($this->renderLayout) $f->attr('checked', 'checked'); 
-        $f->label = $this->_('Render Layout instead of table rows?'); 
-        $f->description = $this->_('If checked, layout is rendered instead of table row.'); // renderLayout option description
-        $f->notes = $this->_('Make sure that your PageTable templates render only html fragments and not complete websites.'); 
-        //$f->collapsed = Inputfield::collapsedBlank;
-        $fieldset->append($f);
+		$f = $this->wire('modules')->get('InputfieldCheckbox'); 
+		$f->attr('name', 'renderLayout'); 
+		$f->attr('value', 1); 
+		if($this->renderLayout) $f->attr('checked', 'checked'); 
+		$f->label = $this->_('Render Layout instead of table rows?'); 
+		$f->description = $this->_('If checked, layout is rendered instead of table row.'); // renderLayout option description
+		$f->notes = $this->_('Make sure that your PageTable templates render only html fragments and not complete websites.'); 
+		//$f->collapsed = Inputfield::collapsedBlank;
+		$fieldset->append($f);
 
 
-        $f = $this->wire('modules')->get('InputfieldText');
+		$f = $this->wire('modules')->get('InputfieldText');
 		$f->attr('name', 'pathToCSS');
 		$f->attr('value', $this->pathToCSS);
 		$f->showIf = "renderLayout=1";
@@ -140,27 +140,27 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		$fieldset->append($f);
 
 		$f = $this->wire('modules')->get('InputfieldCheckbox'); 
-        $f->attr('name', 'collapseUnpublished'); 
-        $f->attr('value', 1); 
-        $f->showIf = "renderLayout=1";
-        //$f->attr('checked', 'checked');
-        if($this->collapseUnpublished) $f->attr('checked', 'checked'); 
-        $f->label = $this->_('Collapse unpublished PageTable parts?'); 
-        $f->description = $this->_('If checked, unpublished PageTable parts are rendered collapsed and can be opened on click.'); 
-        //$f->collapsed = Inputfield::collapsedBlank;
-        $fieldset->append($f);
-
-        $f = $this->wire('modules')->get('InputfieldCheckbox'); 
-        $f->attr('name', 'resetCSS'); 
-        $f->attr('value', 0); 
-        $f->showIf = "renderLayout=1";
-        //$f->attr('checked', 'checked');
-        if($this->resetCSS) $f->attr('checked', 'checked'); 
-        $f->label = $this->_('Reset Admin CSS for rendered rows?'); 
-        $f->description = $this->_('If checked, the CSS for admin (for example for fonts etc.) gets reset inside the rendered rows, so no foreign styles and only your custom styles get applied.'); 
-        $f->notes = $this->_('Primarily makes sense for a 1:1 rendered layout but needs more work.'); 
-        //$f->collapsed = Inputfield::collapsedBlank;
-        $fieldset->append($f);
+		$f->attr('name', 'collapseUnpublished'); 
+		$f->attr('value', 1); 
+		$f->showIf = "renderLayout=1";
+		//$f->attr('checked', 'checked');
+		if($this->collapseUnpublished) $f->attr('checked', 'checked'); 
+		$f->label = $this->_('Collapse unpublished PageTable parts?'); 
+		$f->description = $this->_('If checked, unpublished PageTable parts are rendered collapsed and can be opened on click.'); 
+		//$f->collapsed = Inputfield::collapsedBlank;
+		$fieldset->append($f);
+		
+		$f = $this->wire('modules')->get('InputfieldCheckbox'); 
+		$f->attr('name', 'resetCSS'); 
+		$f->attr('value', 0); 
+		$f->showIf = "renderLayout=1";
+		//$f->attr('checked', 'checked');
+		if($this->resetCSS) $f->attr('checked', 'checked'); 
+		$f->label = $this->_('Reset Admin CSS for rendered rows?'); 
+		$f->description = $this->_('If checked, the CSS for admin (for example for fonts etc.) gets reset inside the rendered rows, so no foreign styles and only your custom styles get applied.'); 
+		$f->notes = $this->_('Primarily makes sense for a 1:1 rendered layout but needs more work.'); 
+		//$f->collapsed = Inputfield::collapsedBlank;
+		$fieldset->append($f);
 
 
 		$inputfields->append($fieldset);
