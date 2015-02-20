@@ -47,11 +47,15 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 				$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
 				$ext = "." . $this->config->templateExtension;
 				$template_name = $p->template->altFilename ? basename($p->template->altFilename, $ext) : $p->template->name;
-				$parsedTemplate = new TemplateFile($this->config->paths->templates . $this->pathToTemplates  . $template_name . $ext);
-				$parsedTemplate->page = $p;
-				$parsedTemplate->options = array('pageTableExtended' => true);
+				$templateFilename = $this->pathToTemplates  . $template_name . $ext;
 
-				$parsedTemplate->page->of(true); // set OutputFormatting to true
+				$options = array(
+					'pageTableExtended' => true,
+					'prependFile' => null,
+					'appendFile' => null);
+				
+				$p->template->filename = $templateFilename; // Otherwise PW throws error notice
+				$p->of(true); // set OutputFormatting to true
 
 				$iconClass = "fa-angle-down";
 				$activeClass = "pte-open";
@@ -73,7 +77,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        							<i class="toggle-icon fa '.$iconClass.'"></i>
 	        						</a>
 	        						<span class="renderedLayoutTitle '.$activeClass.'">'.$layoutTitle.'</span>
-	        						<div class="renderedLayout '.$activeClass.$statusClass.'">'.$parsedTemplate->page->render(array('pageTableExtended' => true)).'</div>
+	        						<div class="renderedLayout '.$activeClass.$statusClass.'">'.$p->render($templateFilename, $options).'</div>
 	        					</td>
 	        					<td width="5%">
 	        						<a class="InputfieldPageTableEdit" data-url="./?id='.$p->id.'&amp;modal=1" href="#">
