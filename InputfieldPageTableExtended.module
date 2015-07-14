@@ -43,10 +43,16 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		if($this->renderLayout) {
 			$pagesToRender = $this->attr('value'); // pages
 			$layout = "";
+			//get the right language label
+			$lang = wire('user')->language;
+			$label = 'label';
+			if (wire('user')->language->title != 'default'){
+				$label = "label{$lang}";
+			}
 			// $this->wire("config")->paths->templates .= "views/bocks/";
 			// echo $this->wire("config")->paths->templates;
 			foreach($pagesToRender as $p){
-				$layoutTitle = $p->template->label ? $p->template->label : $p->template->name;
+				$layoutTitle = $p->template->$label ? $p->template->$label : $p->template->name;
 				$ext = "." . $this->config->templateExtension;
 				$template_name = $p->template->altFilename ? basename($p->template->altFilename, $ext) : $p->template->name;
 				$templateFilename = $this->config->paths->templates . $this->pathToTemplates  . $template_name . $ext;
