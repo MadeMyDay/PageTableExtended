@@ -23,9 +23,11 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 
 	public function ___render() {
 
-		$this->config->scripts->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.js");
-
-		$this->config->styles->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.css");
+		//  https://processwire.com/talk/topic/5477-check-if-a-module-is-loaded/
+		if(!class_exists("InputfieldPageTable", false)) {
+			$this->config->scripts->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.js");
+			$this->config->styles->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.css");
+		}
 
 		if($this->resetCSS){
 			$this->config->styles->add($this->config->urls->InputfieldPageTableExtended . "resetAdminCSS.css");
