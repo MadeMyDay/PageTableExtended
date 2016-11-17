@@ -5,10 +5,10 @@ class FieldtypePageTableExtended extends FieldtypePageTable {
                 return array(
                         'title' => __('PageTable extended'), // Module Title
                         'summary' => __('Extends PageTable entries for rendering in admin', __FILE__), // Module summary
-                        'version' => 22,
+                        'version' => 231,
                         'requires' => array('FieldtypePageTable'),
                         'installs' => 'InputfieldPageTableExtended',
-                        'autoload' => false, 
+                        'autoload' => false,
                         );
         }
 
@@ -22,19 +22,19 @@ class FieldtypePageTableExtended extends FieldtypePageTable {
 
         /**
          * Get the Inputfield used for input by PageTableExtended
-         * 
+         *
          * @param Page $page
          * @param Field $field
          * @return Inputfield
-         * 
+         *
          */
         public function getInputfield(Page $page, Field $field) {
-                $inputfield = $this->modules->get('InputfieldPageTableExtended'); 
-                $inputfield->attr('value', $page->getUnformatted($field->name)); 
-                return $inputfield; 
+                $inputfield = $this->modules->get('InputfieldPageTableExtended');
+                $inputfield->attr('value', $page->getUnformatted($field->name));
+                return $inputfield;
         }
 
-       
+
 
 
 }

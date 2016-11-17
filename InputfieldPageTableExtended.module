@@ -6,7 +6,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		return array(
 			'title' => __('Inputfield for PageTableExtended', __FILE__), // Module Title
 			'summary' => __('Adds Inputfield for PageTableExtended', __FILE__), // Module Summary
-			'version' => 23,
+			'version' => 231,
 			'requires' => array('FieldtypePageTableExtended'),
 			'permanent' => false,
 		);
