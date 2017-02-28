@@ -6,7 +6,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 		return array(
 			'title' => __('Inputfield for PageTableExtended', __FILE__), // Module Title
 			'summary' => __('Adds Inputfield for PageTableExtended', __FILE__), // Module Summary
-			'version' => 232,
+			'version' => 233,
 			'requires' => array('FieldtypePageTableExtended'),
 			'permanent' => false,
 		);
@@ -23,11 +23,8 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 
 	public function ___render() {
 
-		//  https://processwire.com/talk/topic/5477-check-if-a-module-is-loaded/
-		if(!class_exists("InputfieldPageTable", false)) {
-			$this->config->scripts->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.js");
-			$this->config->styles->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.css");
-		}
+		$this->config->scripts->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.js");
+		$this->config->styles->add($this->config->urls->InputfieldPageTable . "InputfieldPageTable.css");
 
 		if($this->resetCSS){
 			$this->config->styles->add($this->config->urls->InputfieldPageTableExtended . "resetAdminCSS.css");

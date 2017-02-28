@@ -5,7 +5,7 @@ class FieldtypePageTableExtended extends FieldtypePageTable {
                 return array(
                         'title' => __('PageTable extended'), // Module Title
                         'summary' => __('Extends PageTable entries for rendering in admin', __FILE__), // Module summary
-                        'version' => 232,
+                        'version' => 233,
                         'requires' => array('FieldtypePageTable'),
                         'installs' => 'InputfieldPageTableExtended',
                         'autoload' => false,
