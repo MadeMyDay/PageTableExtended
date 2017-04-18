@@ -43,10 +43,9 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 			$pagesToRender = $this->attr('value'); // pages
 			$layout = "";
 			//get the right language label
-			$lang = wire('user')->language;
 			$label = 'label';
-			if (wire('user')->language->title != 'default'){
-				$label = "label{$lang}";
+			if ($this->wire('modules')->isInstalled('LanguageSupport') && $this->wire('user')->language->name != 'default'){
+				$label = "label{$this->wire('user')->language}";
 			}
 			// $this->wire("config")->paths->templates .= "views/bocks/";
 			// echo $this->wire("config")->paths->templates;
