@@ -1,4 +1,4 @@
-<?php
+<?php namespace ProcessWire;
 
 class InputfieldPageTableExtended extends InputfieldPageTable {
 
@@ -40,13 +40,13 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	public function ___renderTable(array $columns) {
 		// exit($this->pathToTemplates);
 		if($this->renderLayout) {
+            $files = $this->wire('files');
 			$pagesToRender = $this->attr('value'); // pages
 			$layout = "";
 			//get the right language label
-			$lang = wire('user')->language;
 			$label = 'label';
-			if (wire('user')->language->title != 'default'){
-				$label = "label{$lang}";
+			if ($this->wire('modules')->isInstalled('LanguageSupport') && $this->wire('user')->language->name != 'default'){
+				$label = "label{$this->wire('user')->language}";
 			}
 			// $this->wire("config")->paths->templates .= "views/bocks/";
 			// echo $this->wire("config")->paths->templates;
@@ -54,12 +54,13 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 				$layoutTitle = $p->template->$label ? $p->template->$label : $p->template->name;
 				$ext = "." . $this->config->templateExtension;
 				$template_name = $p->template->altFilename ? basename($p->template->altFilename, $ext) : $p->template->name;
-				$templateFilename = $this->config->paths->templates . $this->pathToTemplates  . $template_name . $ext;
+				if(is_dir($this->pathToTemplates)) $templateFilename = $this->config->paths->templates . $this->pathToTemplates  . $template_name . $ext;
+				else $templateFilename = $this->pathToTemplates;
+                if(preg_match('/\{(.*?)\}/', $templateFilename, $_match) && $this->config->paths->{$_match[1]}) {
+                    $templateFilename = $this->config->paths->{$_match[1]} . str_replace($_match[0], '', $this->pathToTemplates);
+                }
+                $parsedTemplate = $files->render($templateFilename, array('page' => $p, 'isAdmin' => 1, 'pageTableExtended' => true));
 
-				$parsedTemplate = new TemplateFile($templateFilename);
-				$parsedTemplate->set("page", $p);
-				$parsedTemplate->set("isAdmin", 1);
-				$parsedTemplate->options = array('pageTableExtended' => true);
 				$p->of(true);
 
 				$iconClass = "fa-angle-down";
@@ -82,7 +83,7 @@ class InputfieldPageTableExtended extends InputfieldPageTable {
 	        							<i class="toggle-icon fa '.$iconClass.'"></i>
 	        						</a>
 	        						<span class="renderedLayoutTitle '.$activeClass.'">'.$layoutTitle.'</span>
-	        						<div class="renderedLayout '.$activeClass.$statusClass.'">'.$parsedTemplate->render().'</div>
+	        						<div class="renderedLayout '.$activeClass.$statusClass.'">' . $parsedTemplate . '</div>
 	        					</td>
 	        					<td width="5%">
 	        						<a class="InputfieldPageTableEdit" data-url="./?id='.$p->id.'&amp;modal=1" href="#">
